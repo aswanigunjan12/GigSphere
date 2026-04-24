@@ -1,0 +1,13 @@
+.star-rating { display: inline-flex; align-items: center; gap: 2px; }
+.star-icon {
+  font-size: 1.3rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  user-select: none;
+}
+.star-icon:hover:not(.readonly) { transform: scale(1.15); }
+.star-icon.filled { color: var(--gold); }
+.star-icon.readonly { cursor: default; }
+.star-sm .star-icon { font-size: 0.9rem; }
+.star-lg .star-icon { font-size: 1.8rem; }

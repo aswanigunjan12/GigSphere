@@ -1,0 +1,97 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  background: var(--bg-primary);
+}
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-lg);
+}
+.auth-title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+.auth-subtitle {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-xl);
+}
+.auth-error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--red);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-md);
+}
+.auth-submit { width: 100%; margin-top: var(--space-md); }
+.auth-footer-text {
+  text-align: center;
+  margin-top: var(--space-xl);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.auth-link { color: var(--teal); font-weight: 600; }
+.auth-link:hover { text-decoration: underline; }
+.auth-success { text-align: center; padding: var(--space-2xl); }
+.auth-success-icon { font-size: 3rem; display: block; margin-bottom: var(--space-md); }
+.auth-success h2 { color: var(--green); margin-bottom: 8px; }
+.auth-success p { color: var(--text-muted); }
+
+/* Role Toggle */
+.role-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: var(--space-xl);
+  background: var(--bg-secondary);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+}
+.role-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+.role-btn.active {
+  background: var(--teal);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.role-btn:hover:not(.active) { color: var(--text-dark); }
+
+/* Quick Login */
+.quick-login {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--border);
+}
+.quick-login-title {
+  text-align: center;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  margin-bottom: var(--space-md);
+}
+.quick-login-btns {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}

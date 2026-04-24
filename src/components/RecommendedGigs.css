@@ -1,0 +1,307 @@
+/* ============================================================
+   RecommendedGigs – AI Recommendation Section Styles
+   ============================================================ */
+
+/* ── Section wrapper ─────────────────────────────────────── */
+.rec-section {
+  margin-bottom: var(--space-2xl, 48px);
+  padding: 28px 32px;
+  background: linear-gradient(135deg, #f0f7ff 0%, #faf5ff 50%, #f0fff4 100%);
+  border: 1.5px solid #e0e7ff;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.rec-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Section header ──────────────────────────────────────── */
+.rec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rec-header-left { display: flex; flex-direction: column; gap: 4px; }
+
+.rec-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-dark, #1e293b);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.rec-subheading {
+  font-size: 0.8rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+/* ── AI badge ────────────────────────────────────────────── */
+.rec-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.rec-ai-badge--cache {
+  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+}
+
+.rec-ai-dot {
+  width: 7px;
+  height: 7px;
+  background: #a5f3fc;
+  border-radius: 50%;
+  animation: rec-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ── Cards grid ──────────────────────────────────────────── */
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* ── Individual card ─────────────────────────────────────── */
+.rec-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1.5px solid #e5e7eb;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.rec-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+
+.rec-card--high::after { background: linear-gradient(180deg, #10b981, #059669); }
+.rec-card--mid::after  { background: linear-gradient(180deg, #f59e0b, #d97706); }
+.rec-card--low::after  { background: linear-gradient(180deg, #94a3b8, #64748b); }
+
+.rec-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.10);
+}
+
+/* ── Score badge ─────────────────────────────────────────── */
+.rec-score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  align-self: flex-start;
+  font-weight: 700;
+}
+
+.rec-score--high { background: #d1fae5; color: #065f46; }
+.rec-score--mid  { background: #fef3c7; color: #92400e; }
+.rec-score--low  { background: #f1f5f9; color: #475569; }
+
+.rec-score-number { font-size: 1.1rem; }
+.rec-score-label  { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── Card top row ────────────────────────────────────────── */
+.rec-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rec-category-icon { font-size: 1.2rem; }
+
+.rec-urgent-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* ── Title ───────────────────────────────────────────────── */
+.rec-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-dark, #1e293b);
+  text-decoration: none;
+  line-height: 1.3;
+  transition: color 0.15s;
+}
+
+.rec-title:hover { color: #6366f1; }
+
+/* ── Pay & Location ──────────────────────────────────────── */
+.rec-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rec-pay     { font-size: 0.82rem; font-weight: 700; color: #059669; }
+.rec-location { font-size: 0.78rem; color: var(--text-muted, #64748b); }
+
+/* ── AI reason box ───────────────────────────────────────── */
+.rec-reason {
+  display: flex;
+  gap: 8px;
+  background: linear-gradient(135deg, #f5f3ff, #eff6ff);
+  border: 1px solid #e0e7ff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  align-items: flex-start;
+}
+
+.rec-reason-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+
+.rec-reason p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #4338ca;
+  line-height: 1.5;
+}
+
+/* ── Skill tags ──────────────────────────────────────────── */
+.rec-skills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.rec-skill-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+}
+
+/* ── Actions ─────────────────────────────────────────────── */
+.rec-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.rec-apply-btn {
+  flex: 1;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.rec-apply-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.rec-view-btn {
+  padding: 8px 14px;
+  border: 1.5px solid #e5e7eb;
+  color: var(--text-muted, #64748b);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.rec-view-btn:hover { border-color: #6366f1; color: #6366f1; }
+
+.rec-applied-badge {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  background: #d1fae5;
+  color: #065f46;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* ── Skeleton loader ─────────────────────────────────────── */
+.rec-card--skeleton {
+  pointer-events: none;
+  gap: 12px;
+}
+
+.rec-skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  border-radius: 8px;
+  animation: rec-shimmer 1.6s infinite;
+}
+
+@keyframes rec-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.rec-skeleton--badge  { width: 70px; height: 26px; border-radius: 999px; }
+.rec-skeleton--title  { width: 85%; height: 18px; }
+.rec-skeleton--text   { width: 100%; height: 13px; }
+.rec-skeleton--short  { width: 65%; }
+.rec-skeleton--meta   { width: 55%; height: 13px; }
+
+/* ── Error / empty states ────────────────────────────────── */
+.rec-error, .rec-empty {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-muted, #64748b);
+  font-size: 0.88rem;
+}
+
+.rec-error { color: #dc2626; background: #fef2f2; border-radius: 10px; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .rec-section { padding: 20px 16px; }
+  .rec-grid { grid-template-columns: 1fr; }
+  .rec-heading { font-size: 1.1rem; }
+}

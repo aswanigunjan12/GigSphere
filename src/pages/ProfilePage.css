@@ -1,0 +1,15 @@
+.profile-page { padding: var(--space-2xl) 0 var(--space-4xl); }
+.profile-layout { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-xl); align-items: flex-start; }
+.profile-card { text-align: center; position: sticky; top: 80px; }
+.profile-avatar { font-size: 4rem; margin-bottom: 12px; }
+.profile-name { font-size: var(--text-xl); font-weight: 800; margin-bottom: 8px; color: var(--text-dark); }
+.profile-role { margin-bottom: 12px; }
+.profile-rating { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; color: var(--text-body); }
+.profile-location { font-size: var(--text-sm); color: var(--text-muted); }
+.profile-details-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg); }
+.profile-details-header h2 { font-size: var(--text-xl); font-weight: 700; color: var(--text-dark); }
+.profile-info-grid { display: flex; flex-direction: column; gap: 16px; }
+.profile-info-item { display: flex; flex-direction: column; gap: 4px; }
+.profile-info-item span { color: var(--text-body); }
+.profile-info-label { font-size: var(--text-xs); color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+@media (max-width: 768px) { .profile-layout { grid-template-columns: 1fr; } .profile-card { position: static; } }
