@@ -26,9 +26,11 @@ export default function StudentDashboard() {
     setGigs(allGigs);
     setApps(allApps);
     // Run recommendation engine with current user + all gigs
+    // Re-runs when skills or availability change (profile edits)
     setRecommended(recommendGigs(user, allGigs));
     setPlatformEarnings(getPlatformEarnings());
-  }, [user.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.id, JSON.stringify(user.skills), user.availability]);
 
   const getGig     = (gigId) => gigs.find((g) => g.id === gigId);
   const payments   = (getData('payments') || []).filter((p) => p.toId === user.id);

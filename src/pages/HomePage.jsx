@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getData } from '../utils/storage';
 import './HomePage.css';
 
 export default function HomePage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const gigs = getData('gigs') || [];
+  const openGigs = gigs.filter(g => g.status === 'open');
 
   const categories = [
     { icon: '🎨', label: 'Creative', desc: 'Design, Photography, Content' },
@@ -63,9 +65,9 @@ export default function HomePage() {
       {/* Search Bar */}
       <section className="hp-search-section">
         <div className="container">
-          <div className="hp-search-bar">
+          <div className="hp-search-bar" onClick={() => navigate(user ? '/gigs' : '/login')} style={{ cursor: 'pointer' }}>
             <span className="hp-search-icon">🔍</span>
-            <input type="text" placeholder="Find gigs near you..." className="hp-search-input" readOnly />
+            <input type="text" placeholder="Search gigs by skill, role, or location…" className="hp-search-input" readOnly />
             <Link to={user ? '/gigs' : '/login'} className="btn btn-gold">Search</Link>
           </div>
         </div>
@@ -76,8 +78,8 @@ export default function HomePage() {
         <div className="container">
           <div className="hp-section-header">
             <h2 className="hp-section-title">Explore Part-Time Gigs Near You</h2>
-            <p className="hp-section-desc">Discover short-term jobs that match your skills as Freelance.</p>
-            <span className="hp-gig-count">💛 {gigs.length * 12073}</span>
+            <p className="hp-section-desc">Discover flexible, short-term jobs that match your skills and schedule.</p>
+            <span className="hp-gig-count">{openGigs.length} open gig{openGigs.length !== 1 ? 's' : ''} available</span>
           </div>
 
           <div className="hp-gigs-grid">
@@ -164,12 +166,36 @@ export default function HomePage() {
       {/* CTA */}
       <section className="hp-cta">
         <div className="container hp-cta-content">
-          <h2>Ready to get started?</h2>
-          <p>Join thousands of students and businesses on GigSphere today.</p>
-          <div className="hp-cta-actions">
-            <Link to="/signup" className="btn btn-gold btn-lg">Sign Up Free</Link>
-            <Link to="/login" className="btn btn-outline btn-lg">Log In</Link>
-          </div>
+          {user ? (
+            user.role === 'student' ? (
+              <>
+                <h2>Ready to find your next gig?</h2>
+                <p>Browse opportunities matched to your skills and start earning today.</p>
+                <div className="hp-cta-actions">
+                  <Link to="/gigs" className="btn btn-gold btn-lg">Browse Gigs</Link>
+                  <Link to="/dashboard" className="btn btn-outline btn-lg">Dashboard</Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2>Ready to hire talent?</h2>
+                <p>Post a gig and connect with skilled students in minutes.</p>
+                <div className="hp-cta-actions">
+                  <Link to="/post-gig" className="btn btn-gold btn-lg">Post a Gig</Link>
+                  <Link to="/dashboard" className="btn btn-outline btn-lg">Manage Applicants</Link>
+                </div>
+              </>
+            )
+          ) : (
+            <>
+              <h2>Ready to get started?</h2>
+              <p>Join thousands of students and businesses on GigSphere today.</p>
+              <div className="hp-cta-actions">
+                <Link to="/signup" className="btn btn-gold btn-lg">Sign Up Free</Link>
+                <Link to="/login" className="btn btn-outline btn-lg">Log In</Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -181,10 +207,10 @@ export default function HomePage() {
             <span>Gig<span style={{ color: 'var(--teal)' }}>Sphere</span></span>
           </div>
           <div className="hp-footer-links">
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
+            <Link to="/">About</Link>
+            <Link to={user ? '/dashboard' : '/login'}>Dashboard</Link>
+            <Link to={user ? '/gigs' : '/signup'}>Browse Gigs</Link>
+            <Link to={user ? '/profile' : '/signup'}>Profile</Link>
           </div>
           <p className="hp-footer-copy">© 2026 GigSphere. All rights reserved.</p>
         </div>

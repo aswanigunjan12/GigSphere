@@ -22,9 +22,12 @@ export default function ChatPage() {
       return;
     }
     setApp(found);
-    const users = getData('users') || [];
+    // Resolve other user from both stores
+    const gsUsers  = getData('users') || [];
+    const appUsers = JSON.parse(localStorage.getItem('gigsphere_users') || '[]');
+    const allUsers = [...gsUsers, ...appUsers];
     const otherId = user.role === 'student' ? found.businessId : found.studentId;
-    setOtherUser(users.find(u => u.id === otherId));
+    setOtherUser(allUsers.find(u => String(u.id) === String(otherId)));
     setMessages((getData('messages') || []).filter(m => m.applicationId === applicationId));
   }, [applicationId, user, navigate]);
 

@@ -117,9 +117,15 @@ export default function PaymentsPage() {
           ) : (
             payments.map((p) => {
               const gig   = (getData('gigs')  || []).find((g) => g.id === p.gigId);
-              const other = (getData('users') || []).find(
-                (u) => u.id === (isStudent ? p.fromId : p.toId)
-              );
+              // Resolve the other party's name from both user stores
+              const gsUsers  = getData('users') || [];
+              const appUsers = JSON.parse(localStorage.getItem('gigsphere_users') || '[]');
+              const allUsers = [...gsUsers, ...appUsers];
+              const otherId  = isStudent ? p.fromId : p.toId;
+              const other    = allUsers.find((u) => String(u.id) === String(otherId));
+
+              // Title-case helper for user-created gig titles
+              const gigTitle = (gig?.title || 'Unknown Gig').replace(/\b\w/g, c => c.toUpperCase());
 
               // Pre-calculate commission breakdown for pending payments
               const breakdown = p.status === 'pending'
@@ -133,9 +139,9 @@ export default function PaymentsPage() {
               return (
                 <div key={p.id} className="pay-item card">
                   <div className="pay-item-info">
-                    <h3>{gig?.title || 'Unknown Gig'}</h3>
+                    <h3>{gigTitle}</h3>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
-                      {isStudent ? `From: ${other?.name || '—'}` : `To: ${other?.name || '—'}`}
+                      {isStudent ? `From: ${other?.name || gig?.businessName || 'Business'}` : `To: ${other?.name || 'Student'}`}
                     </p>
 
                     {/* Earnings breakdown table */}

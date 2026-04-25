@@ -52,7 +52,9 @@ export default function useGigRecommendations(student) {
 
     run();
     return () => { cancelled = true; };
-  }, [student?.id]);
+  // Re-run when skills or availability change (profile edits)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [student?.id, JSON.stringify(student?.skills), student?.availability]);
 
   // Enrich recommendations with full gig objects
   const allGigs = getData('gigs') || [];
