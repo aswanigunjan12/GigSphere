@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getData } from '../utils/storage';
-import { recommendGigs, calcCommission, getPlatformEarnings } from '../utils/store';
+import { recommendGigs, calcCommission } from '../utils/store';
 import './Dashboard.css';
 
 // ─── Score badge colour tier ──────────────────────────────
@@ -18,7 +18,7 @@ export default function StudentDashboard() {
   const [gigs, setGigs]               = useState([]);
   const [apps, setApps]               = useState([]);
   const [recommended, setRecommended] = useState([]);
-  const [platformEarnings, setPlatformEarnings] = useState(0);
+
 
   useEffect(() => {
     const allGigs = getData('gigs') || [];
@@ -28,7 +28,7 @@ export default function StudentDashboard() {
     // Run recommendation engine with current user + all gigs
     // Re-runs when skills or availability change (profile edits)
     setRecommended(recommendGigs(user, allGigs));
-    setPlatformEarnings(getPlatformEarnings());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id, JSON.stringify(user.skills), user.availability]);
 
@@ -152,7 +152,7 @@ export default function StudentDashboard() {
           )}
         </div>
 
-        {/* ── My Applications + Platform Earnings ──────────── */}
+        {/* ── My Applications ──────────────────────────────── */}
         <div className="dash-grid">
           <div className="dash-section">
             <h2 className="dash-section-title">My Applications</h2>
@@ -189,25 +189,7 @@ export default function StudentDashboard() {
             )}
           </div>
 
-          {/* Platform Earnings panel (visible to student to show transparency) */}
-          <div className="dash-section">
-            <h2 className="dash-section-title">Platform Earnings 📊</h2>
-            <div className="platform-earnings-card card">
-              <div className="pe-row pe-big">
-                <span>Total Platform Earnings</span>
-                <span className="pe-amount">₹{platformEarnings.toLocaleString()}</span>
-              </div>
-              <div className="pe-row">
-                <span>Your Total Earned</span>
-                <span className="pe-you">₹{totalEarned.toLocaleString()}</span>
-              </div>
-              <div className="pe-row pe-fee-row">
-                <span>Fees Paid</span>
-                <span className="pe-fee">₹{totalFees.toLocaleString()}</span>
-              </div>
-              <p className="pe-note">GigSphere takes 10% of each gig payment to maintain the platform.</p>
-            </div>
-          </div>
+
         </div>
 
       </div>

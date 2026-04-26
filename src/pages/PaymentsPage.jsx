@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getData, setData } from '../utils/storage';
-import { handlePayment, calcCommission, getPlatformEarnings } from '../utils/store';
+import { handlePayment, calcCommission } from '../utils/store';
 import './PaymentsPage.css';
 
 // ─── Success toast after payment ──────────────────────────
@@ -25,11 +25,7 @@ function PaySuccessToast({ result, onClose }) {
             <span>Student Receives</span>
             <span>₹{result.studentEarning.toLocaleString()}</span>
           </div>
-          <div className="ptb-divider" />
-          <div className="ptb-row ptb-platform">
-            <span>Platform Total Earnings</span>
-            <span>₹{result.platformEarnings.toLocaleString()}</span>
-          </div>
+
         </div>
         <button className="btn btn-sm btn-primary" style={{ marginTop: 12 }} onClick={onClose}>Done ✓</button>
       </div>
@@ -42,12 +38,12 @@ export default function PaymentsPage() {
   const [payments, setPayments]       = useState([]);
   const [refresh, setRefresh]         = useState(0);
   const [successResult, setSuccessResult] = useState(null);
-  const [platformEarnings, setPlatformEarnings] = useState(0);
+
 
   useEffect(() => {
     const allPayments = getData('payments') || [];
     setPayments(allPayments.filter((p) => p.fromId === user.id || p.toId === user.id));
-    setPlatformEarnings(getPlatformEarnings());
+
   }, [user.id, refresh]);
 
   // "Pay Now" handler — uses commission-aware handlePayment from store.js
@@ -56,7 +52,7 @@ export default function PaymentsPage() {
     if (result.success) {
       setSuccessResult(result);
       setRefresh((r) => r + 1);
-      setPlatformEarnings(result.platformEarnings);
+
     }
   };
 
@@ -100,11 +96,7 @@ export default function PaymentsPage() {
             <span className="stat-value">{payments.length}</span>
             <span className="stat-label">Transactions</span>
           </div>
-          <div className="stat-card stat-card--platform">
-            <span className="stat-icon">🏛️</span>
-            <span className="stat-value">₹{platformEarnings.toLocaleString()}</span>
-            <span className="stat-label">Platform Earnings</span>
-          </div>
+
         </div>
 
         {/* ── Payment list ───────────────────────────────── */}
